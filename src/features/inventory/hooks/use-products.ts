@@ -8,16 +8,32 @@ const DUMMY_PRODUCTS: Product[] = [
     { id: "5", name: "Café Americano", price: 2.00, stock: 1000, category: "Bebidas" },
 ];
 
+import { supabase } from "@/lib/supabase/client";
+
 export function useProducts() {
-    // Simulating async data fetching
     const getProducts = async (): Promise<Product[]> => {
-        return new Promise((resolve) => {
-            setTimeout(() => resolve(DUMMY_PRODUCTS), 500);
-        });
+        try {
+            const { data, error } = await supabase.from("products").select("*");
+
+            if (error) {
+                console.warn("Supabase error (using dummy data):", error.message);
+                return DUMMY_PRODUCTS;
+            }
+
+            if (!data || data.length === 0) {
+                console.warn("No data in Supabase (using dummy data)");
+                return DUMMY_PRODUCTS;
+            }
+
+            return data as Product[];
+        } catch (err) {
+            console.error("Connection failed (using dummy data):", err);
+            return DUMMY_PRODUCTS;
+        }
     };
 
     return {
-        products: DUMMY_PRODUCTS, // Return direct data for initial render if needed, or use state
+        products: DUMMY_PRODUCTS, // Initial render fallback
         getProducts,
     };
 }

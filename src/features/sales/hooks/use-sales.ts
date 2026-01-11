@@ -20,11 +20,32 @@ const DUMMY_SALES: Sale[] = [
     },
 ];
 
+import { supabase } from "@/lib/supabase/client";
+
 export function useSales() {
     const getSales = async (): Promise<Sale[]> => {
-        return new Promise((resolve) => {
-            setTimeout(() => resolve(DUMMY_SALES), 500);
-        });
+        try {
+            const { data, error } = await supabase.from("sales").select("*");
+
+            if (error) {
+                console.warn("Supabase error (using dummy data):", error.message);
+                return DUMMY_SALES;
+            }
+
+            if (!data || data.length === 0) {
+                console.warn("No data in Supabase (using dummy data)");
+                return DUMMY_SALES;
+            }
+
+            // Convert DB types if necessary
+            return data.map((item: any) => ({
+                ...item,
+                createdAt: new Date(item.created_at)
+            })) as Sale[];
+        } catch (err) {
+            console.error("Connection failed (using dummy data):", err);
+            return DUMMY_SALES;
+        }
     };
 
     return {
