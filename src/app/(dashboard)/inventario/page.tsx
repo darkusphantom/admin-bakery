@@ -1,41 +1,54 @@
-"use client";
+'use client'
 
-import { useProducts } from "@/features/inventory/hooks/use-products";
+import { useState } from 'react'
+import { Plus } from 'lucide-react'
+import ProductList from '@/features/inventory/components/product-list'
+import ProductForm from '@/features/inventory/components/product-form'
+import { Button } from '@/components/ui/button'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 
 export default function InventarioPage() {
-  const { products } = useProducts();
+  const [open, setOpen] = useState(false)
 
   return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-2xl font-bold">Gestión de Inventario</h1>
-      <p className="text-muted-foreground">Datos simulados (Backend no conectado)</p>
+    <div className="p-4 space-y-6 pb-24">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Inventario</h1>
+      </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <div key={product.id} className="border rounded-lg p-4 bg-card shadow-sm">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-semibold text-lg">{product.name}</h3>
-                <p className="text-sm text-muted-foreground">{product.category}</p>
-              </div>
-              <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-medium">
-                ${product.price.toFixed(2)}
-              </span>
+      <ProductList />
+
+      {/* Floating Action Button (FAB) */}
+      <div className="fixed bottom-20 right-4 z-40">
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button
+              size="icon"
+              className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+              <Plus className="h-6 w-6" />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <div className="mx-auto w-full max-w-sm pb-safe">
+              <DrawerHeader>
+                <DrawerTitle>Nuevo Producto</DrawerTitle>
+                <DrawerDescription>
+                  Ingresa los detalles del producto para el inventario.
+                </DrawerDescription>
+              </DrawerHeader>
+              <ProductForm onSuccess={() => setOpen(false)} />
             </div>
-            <div className="mt-4 flex justify-between items-end">
-              <div>
-                <p className="text-sm text-muted-foreground">Stock</p>
-                <p className={`font-bold ${product.stock < 20 ? 'text-red-500' : 'text-zinc-900'}`}>
-                  {product.stock} un.
-                </p>
-              </div>
-              <button className="text-sm bg-zinc-900 text-white px-3 py-1 rounded-md hover:bg-zinc-800 transition-colors">
-                Editar
-              </button>
-            </div>
-          </div>
-        ))}
+          </DrawerContent>
+        </Drawer>
       </div>
     </div>
-  );
+  )
 }

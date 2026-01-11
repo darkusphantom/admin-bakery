@@ -1,39 +1,41 @@
-import { Product } from "../types";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { supabase } from '@/lib/supabase/client'
+import { Product } from '../types'
 
-const DUMMY_PRODUCTS: Product[] = [
-    { id: "1", name: "Pan Francés", price: 0.50, stock: 120, category: "Panes" },
-    { id: "2", name: "Croissant", price: 2.50, stock: 45, category: "Bollería" },
-    { id: "3", name: "Pastel de Chocolate", price: 15.00, stock: 10, category: "Pasteles" },
-    { id: "4", name: "Empanada de Queso", price: 3.00, stock: 30, category: "Salados" },
-    { id: "5", name: "Café Americano", price: 2.00, stock: 1000, category: "Bebidas" },
-];
+export function useGetProducts() {
+  return useQuery({
+    queryKey: ['products'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('name', { ascending: true })
 
-import { supabase } from "@/lib/supabase/client";
+      if (error) {
+        throw new Error(error.message)
+      }
 
-export function useProducts() {
-    const getProducts = async (): Promise<Product[]> => {
-        try {
-            const { data, error } = await supabase.from("products").select("*");
+      return data as Product[]
+    },
+  })
+}
 
-            if (error) {
-                console.warn("Supabase error (using dummy data):", error.message);
-                return DUMMY_PRODUCTS;
-            }
+export function useCreateProduct() {
+  const queryClient = useQueryClient()
 
-            if (!data || data.length === 0) {
-                console.warn("No data in Supabase (using dummy data)");
-                return DUMMY_PRODUCTS;
-            }
+  return useMutation({
+    mutationFn: async (newProduct: Omit<Product, 'id' | 'created_at'>) => {
+      const { data, error } = await supabase.from('products').insert(newProduct).select().single()
 
-            return data as Product[];
-        } catch (err) {
-            console.error("Connection failed (using dummy data):", err);
-            return DUMMY_PRODUCTS;
-        }
-    };
+      if (error) {
+        throw new Error(error.message)
+      }
 
-    return {
-        products: DUMMY_PRODUCTS, // Initial render fallback
-        getProducts,
-    };
+      return data
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+    },
+  })
 }

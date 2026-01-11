@@ -31,6 +31,14 @@ define(['./workbox-f1770938'], function (e) {
     e.clientsClaim(),
     e.precacheAndRoute(
       [
+        {
+          url: '/_next/static/20XU4SZMJy5_vFyBJBIOb/_buildManifest.js',
+          revision: 'aad15a602b331db596e13514962832ee',
+        },
+        {
+          url: '/_next/static/20XU4SZMJy5_vFyBJBIOb/_ssgManifest.js',
+          revision: 'b6652df95db52feb4daf4eca35380933',
+        },
         { url: '/_next/static/chunks/39-61f089f4e5200afc.js', revision: '61f089f4e5200afc' },
         { url: '/_next/static/chunks/437-eb5114daec411ee5.js', revision: 'eb5114daec411ee5' },
         { url: '/_next/static/chunks/4bd1b696-67e30520d621c4dd.js', revision: '67e30520d621c4dd' },
@@ -119,14 +127,6 @@ define(['./workbox-f1770938'], function (e) {
         {
           url: '/_next/static/media/ba015fad6dcf6784-s.woff2',
           revision: '8ea4f719af3312a055caf09f34c89a77',
-        },
-        {
-          url: '/_next/static/r51rOPUoaKckrj0-3z1Zr/_buildManifest.js',
-          revision: 'aad15a602b331db596e13514962832ee',
-        },
-        {
-          url: '/_next/static/r51rOPUoaKckrj0-3z1Zr/_ssgManifest.js',
-          revision: 'b6652df95db52feb4daf4eca35380933',
         },
         { url: '/file.svg', revision: 'd09f95206c3fa0bb9bd9fefabfd0ea71' },
         { url: '/globe.svg', revision: '2aaafa6a49b6563925fe440891e32717' },
