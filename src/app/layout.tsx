@@ -15,14 +15,13 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Panadería App',
-  description: 'Gestión de inventario y ventas',
-  manifest: '/manifest.json',
+  title: 'Sistema Panadería',
+  description: 'Control de Ventas e Inventario',
 }
 
 // Importante para móviles: evita que el usuario haga zoom in/out accidentalmente
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#000000',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
