@@ -44,7 +44,9 @@ export function CartDrawer({
       {
         items,
         total: totalUsd,
+        totalBs,
         paymentMethod,
+        exchangeRateSnapshot: rate,
       },
       {
         onSuccess: () => {

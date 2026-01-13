@@ -5,20 +5,30 @@ import { CartItem } from './use-cart'
 interface CreateSaleParams {
   items: CartItem[]
   total: number
-  paymentMethod: string // 'cash', 'pago_movil', 'debit', etc.
+  totalBs: number
+  paymentMethod: string
+  exchangeRateSnapshot: number
 }
 
 export function useCreateSale() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({ items, total, paymentMethod }: CreateSaleParams) => {
+    mutationFn: async ({
+      items,
+      total,
+      totalBs,
+      paymentMethod,
+      exchangeRateSnapshot,
+    }: CreateSaleParams) => {
       // 1. Create Sale
       const { data: sale, error: saleError } = await supabase
         .from('sales')
         .insert({
           total_amount: total,
+          // total_amount_ves: totalBs,
           payment_method: paymentMethod,
+          exchange_rate_snapshot: exchangeRateSnapshot,
         })
         .select()
         .single()
