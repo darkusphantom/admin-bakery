@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw, LogOut } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -17,10 +17,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useExchangeRate, useUpdateExchangeRate } from '@/features/settings/hooks/use-exchange-rate'
 import { getDolarBcv } from '@/features/settings/services/dolar-api'
+import { useAuth } from '@/features/auth/hooks/use-auth'
+import { useRouter } from 'next/navigation'
 
 export function DashboardHeader() {
   const { data: exchangeData, isLoading } = useExchangeRate()
   const { mutate: updateRate, isPending: isUpdating } = useUpdateExchangeRate()
+  const { logout } = useAuth()
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false)
   const [manualRate, setManualRate] = useState<string>('')
@@ -110,6 +114,17 @@ export function DashboardHeader() {
     })
   }
 
+  const handleLogout = async () => {
+    try {
+      await logout()
+      router.refresh()
+      router.push('/login')
+      toast.success('Sesión cerrada')
+    } catch (error) {
+      toast.error('Error al cerrar sesión')
+    }
+  }
+
   return (
     <div className="flex items-center justify-between p-4 bg-background border-b sticky top-0 z-10">
       <h1 className="text-xl font-bold">Panadería</h1>
@@ -168,6 +183,16 @@ export function DashboardHeader() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleLogout}
+          className="h-8 w-8 p-0 ml-2 text-muted-foreground hover:text-destructive transition-colors"
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="sr-only">Cerrar Sesión</span>
+        </Button>
       </div>
     </div>
   )
