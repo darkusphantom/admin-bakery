@@ -29,7 +29,7 @@ type ProductFormValues = z.infer<typeof productSchema>
 export default function ProductForm({ onSuccess }: { onSuccess?: () => void }) {
   const mutation = useCreateProduct()
 
-  const form = useForm<ProductFormValues>({
+  const form = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: '',
