@@ -77,7 +77,12 @@ export default function ProductForm({ onSuccess }: { onSuccess?: () => void }) {
               <FormItem>
                 <FormLabel>Precio</FormLabel>
                 <FormControl>
-                  <Input type="number" step="0.01" {...field} />
+                  <Input
+                    type="number"
+                    step="0.01"
+                    {...field}
+                    value={field.value as string | number}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,7 +96,12 @@ export default function ProductForm({ onSuccess }: { onSuccess?: () => void }) {
               <FormItem>
                 <FormLabel>Costo</FormLabel>
                 <FormControl>
-                  <Input type="number" step="0.01" {...field} />
+                  <Input
+                    type="number"
+                    step="0.01"
+                    {...field}
+                    value={field.value as string | number}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,7 +115,7 @@ export default function ProductForm({ onSuccess }: { onSuccess?: () => void }) {
               <FormItem>
                 <FormLabel>Stock</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} value={field.value as string | number} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

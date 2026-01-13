@@ -52,8 +52,8 @@ define(['./workbox-f1770938'], function (e) {
           revision: 'b95b92e9a6bdc47e',
         },
         {
-          url: '/_next/static/chunks/app/(dashboard)/inventario/page-ab52cfc58c44adfe.js',
-          revision: 'ab52cfc58c44adfe',
+          url: '/_next/static/chunks/app/(dashboard)/inventario/page-5a61369fdc200593.js',
+          revision: '5a61369fdc200593',
         },
         {
           url: '/_next/static/chunks/app/(dashboard)/layout-d0a7b0570fe690b5.js',
@@ -117,14 +117,6 @@ define(['./workbox-f1770938'], function (e) {
         { url: '/_next/static/chunks/webpack-488f4a709a78c1b3.js', revision: '488f4a709a78c1b3' },
         { url: '/_next/static/css/50c017091c7d82cd.css', revision: '50c017091c7d82cd' },
         {
-          url: '/_next/static/ikGRjsEKvM2s4iHOZlLM0/_buildManifest.js',
-          revision: '78f0a4aae3e499a9217acd4e669d7334',
-        },
-        {
-          url: '/_next/static/ikGRjsEKvM2s4iHOZlLM0/_ssgManifest.js',
-          revision: 'b6652df95db52feb4daf4eca35380933',
-        },
-        {
           url: '/_next/static/media/4cf2300e9c8272f7-s.p.woff2',
           revision: '18bae71b1e1b2bb25321090a3b563103',
         },
@@ -147,6 +139,14 @@ define(['./workbox-f1770938'], function (e) {
         {
           url: '/_next/static/media/ba015fad6dcf6784-s.woff2',
           revision: '8ea4f719af3312a055caf09f34c89a77',
+        },
+        {
+          url: '/_next/static/rZNkcCPTrJyELYXJG13-T/_buildManifest.js',
+          revision: '78f0a4aae3e499a9217acd4e669d7334',
+        },
+        {
+          url: '/_next/static/rZNkcCPTrJyELYXJG13-T/_ssgManifest.js',
+          revision: 'b6652df95db52feb4daf4eca35380933',
         },
         { url: '/file.svg', revision: 'd09f95206c3fa0bb9bd9fefabfd0ea71' },
         { url: '/globe.svg', revision: '2aaafa6a49b6563925fe440891e32717' },
